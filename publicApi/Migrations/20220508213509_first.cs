@@ -26,7 +26,7 @@ namespace publicApi.Migrations
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     firstName = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    lastName = table.Column<int>(type: "int", maxLength: 500, nullable: false),
+                    lastName = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     userName = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     passwordHash = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),

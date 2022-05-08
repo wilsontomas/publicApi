@@ -9,7 +9,7 @@ using publicApi.Dal;
 namespace publicApi.Migrations
 {
     [DbContext(typeof(DbUsuarioContext))]
-    [Migration("20220508202336_first")]
+    [Migration("20220508213509_first")]
     partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,9 +66,10 @@ namespace publicApi.Migrations
                         .HasColumnType("nvarchar(500)")
                         .HasColumnName("firstName");
 
-                    b.Property<int>("lastName")
+                    b.Property<string>("lastName")
+                        .IsRequired()
                         .HasMaxLength(500)
-                        .HasColumnType("int")
+                        .HasColumnType("nvarchar(500)")
                         .HasColumnName("lastName");
 
                     b.Property<string>("passwordHash")

@@ -9,5 +9,6 @@ namespace publicApi.Service.Interfaces
     public interface IUserService
     {
         Task updatePassword(string username, string password);
+        bool veriryPassword(string password, string hash, string salt);
     }
 }

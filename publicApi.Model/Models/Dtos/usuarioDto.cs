@@ -10,7 +10,7 @@ namespace publicApi.Model.Models.Dtos
     {
         public int id { get; set; }
         public string firstName { get; set; }
-        public int lastName { get; set; }
+        public string lastName { get; set; }
         public string userName { get; set; }
         public string email { get; set; }
         public int typeId { get; set; }

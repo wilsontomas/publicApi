@@ -15,20 +15,49 @@ namespace publicApi.Service
     {
         private readonly IMapper _mapper;
         private readonly DbUsuarioContext _context;
-        public AuthService(IMapper mapper, DbUsuarioContext db)
+        private readonly IUserService _userService;
+        public AuthService(IMapper mapper, IUserService userService, DbUsuarioContext db)
         {
             _mapper = mapper;
             _context = db;
+            _userService = userService;
         }
         public async Task Register(usuarioDto user)
         {
             var usuarioRaw = _mapper.Map<usuario>(user);
-            if (user != null)
+            try
             {
                 _context.Add(usuarioRaw);
                 await _context.SaveChangesAsync();
-                //await updatePassword(usuarioRaw.userName, user.password);
+                await _userService.updatePassword(usuarioRaw.userName, user.password);
             }
+            catch (Exception er) 
+            {
+                return;
+            }
+                
+                //
+            
         }
+
+        public bool Authenticate(string username, string password)
+        {
+            //var usuarioRaw = _mapper.Map<usuario>(user);
+            
+              var usuario = _context.Usuarios.Where(x => x.userName == username)
+                    .ToList().SingleOrDefault();
+
+            if (usuario != null)
+            {
+                return _userService.veriryPassword(password, usuario.passwordHash, usuario.passwordSalt);
+            }
+            else {
+                return false;
+            } 
+            
+           
+        }
+
+
     }
 }

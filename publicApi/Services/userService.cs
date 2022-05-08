@@ -44,6 +44,13 @@ namespace publicApi.Service
             }
         }
 
+        public bool veriryPassword(string password,string hash,string salt) 
+        {
+            var saltBytes = Convert.FromBase64String(salt);
+            var rfc = new Rfc2898DeriveBytes(password, saltBytes, 10000);
+            return Convert.ToBase64String(rfc.GetBytes(256)) == hash;
+        }
+
 
 
     }

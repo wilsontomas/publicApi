@@ -13,6 +13,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using publicApi.Service.Interfaces;
+using publicApi.Service;
+using publicApi.Model.Profiles;
+
 namespace publicApi
 {
     public class Startup
@@ -33,9 +37,12 @@ namespace publicApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "publicApi", Version = "v1" });
             });
-            services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(typeof(usuarioProfile));
+           
             services.AddDbContext<DbUsuarioContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("db_usuario")));
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IUserService, userService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

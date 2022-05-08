@@ -64,9 +64,10 @@ namespace publicApi.Migrations
                         .HasColumnType("nvarchar(500)")
                         .HasColumnName("firstName");
 
-                    b.Property<int>("lastName")
+                    b.Property<string>("lastName")
+                        .IsRequired()
                         .HasMaxLength(500)
-                        .HasColumnType("int")
+                        .HasColumnType("nvarchar(500)")
                         .HasColumnName("lastName");
 
                     b.Property<string>("passwordHash")
