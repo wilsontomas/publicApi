@@ -7,11 +7,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using publicApi.Dal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Microsoft.EntityFrameworkCore;
 namespace publicApi
 {
     public class Startup
@@ -32,6 +33,9 @@ namespace publicApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "publicApi", Version = "v1" });
             });
+            services.AddAutoMapper(typeof(Startup));
+            services.AddDbContext<DbUsuarioContext>(
+                options => options.UseSqlServer(Configuration.GetConnectionString("db_usuario")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
