@@ -16,7 +16,7 @@ namespace publicApi.Model.Models
         public string passwordHash { get; set; }
         public string passwordSalt { get; set; }
 
-        public virtual usuarioType usuarioType { get; set; }
+        public virtual usuarioType usuarioTypes { get; set; }
         public int typeId { get; set; }
         public virtual List<Tareas> tareas { get; set; }
     }

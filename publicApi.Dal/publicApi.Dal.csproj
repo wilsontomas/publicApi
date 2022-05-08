@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\publicApi.Model\publicApi.Model.csproj" />
+    <ProjectReference Include="..\publicApi\publicApi.csproj" />
   </ItemGroup>
 
 </Project>
