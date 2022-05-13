@@ -11,8 +11,9 @@ namespace publicApi.Service.Interfaces
     {
         Task updatePassword(string username, string password);
         bool veriryPassword(string password, string hash, string salt);
-        Task<usuarioDto> getUserInfo(string username);
+        Task<usuarioDto> getUserInfo(int id);
         Task UpdateUser(usuarioDto user);
         Task<List<usuarioDto>> getAllUsers();
+        Task DeleteUser(int id);
     }
 }

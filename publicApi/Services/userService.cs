@@ -24,9 +24,9 @@ namespace publicApi.Service
         }
 
 
-        public  async Task<usuarioDto> getUserInfo(string username) 
+        public  async Task<usuarioDto> getUserInfo(int id) 
         {
-            var usuario = await _context.Usuarios.Where(x => x.userName.Equals(username)).SingleOrDefaultAsync();
+            var usuario = await _context.Usuarios.Where(x => x.id==id).SingleOrDefaultAsync();
             var usuarioDto = _mapper.Map<usuarioDto>(usuario);
             return usuarioDto;
         }
@@ -45,6 +45,21 @@ namespace publicApi.Service
               await _context.SaveChangesAsync();
 
            await updatePassword(user.userName, user.password);
+           
+        }
+        public async Task DeleteUser(int id)
+        {
+            var usuario = await _context.Usuarios.Where(x => x.id == id).SingleOrDefaultAsync();
+            if (usuario.typeId != 2) 
+            {
+                //delete user tasks
+                var listaTareas = await _context.Tareas.Where(x => x.usuarioId == id).ToListAsync();
+                _context.Tareas.RemoveRange(listaTareas);
+               await _context.SaveChangesAsync();
+                //delete user
+                _context.Usuarios.Remove(usuario);
+                await _context.SaveChangesAsync();
+            }
            
         }
 
