@@ -1,5 +1,6 @@
 ﻿using publicApi.Model.Models;
 using publicApi.Model.Models.Dtos;
+using publicApi.Service.UtilClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,6 @@ namespace publicApi.Service.Interfaces
     public interface IAuthService
     {
         Task Register(usuarioDto user);
-        bool Authenticate(string username, string password);
+        Task<JwtAuthResult> Authenticate(string username, string password);
     }
 }

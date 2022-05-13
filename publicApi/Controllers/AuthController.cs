@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 using publicApi.Service;
 using publicApi.Service.Interfaces;
 using System;
+using Microsoft.AspNetCore.Authorization;
+using publicApi.Service.UtilClasses;
 
 namespace publicApi.Controllers
 {
+    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -36,11 +39,11 @@ namespace publicApi.Controllers
 
         [HttpPost]
         [Route("login")]
-        public ActionResult<bool> login(string username,string password) 
+        public async Task<ActionResult<JwtAuthResult>> login(string username,string password) 
         {
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password)) return BadRequest();
 
-          var result = _servicio.Authenticate(username, password);
+          var result =  await _servicio.Authenticate(username, password);
             return Ok(result);
         }
     }

@@ -16,6 +16,12 @@ using Microsoft.EntityFrameworkCore;
 using publicApi.Service.Interfaces;
 using publicApi.Service;
 using publicApi.Model.Profiles;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using publicApi.Service.ConfigurationOptions;
+using System.Text;
+using publicApi.Services;
+using publicApi.Services.Interfaces;
 
 namespace publicApi
 {
@@ -41,8 +47,40 @@ namespace publicApi
            
             services.AddDbContext<DbUsuarioContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("db_usuario")));
+            //DI
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, userService>();
+            services.AddScoped<IJwtService, JwtService>();
+            services.AddScoped<ITaskService, TasksService>();
+
+            //jwt
+            var jsonWebTokenOptions = Configuration.GetSection(JsonWebTokenOptions.Section).Get<JsonWebTokenOptions>();
+
+            services.AddSingleton(jsonWebTokenOptions);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jsonWebTokenOptions.Secret)),
+                    ValidateIssuer = true,
+                    ValidIssuer = jsonWebTokenOptions.Issuer,
+                    ValidateAudience = true,
+                    ValidAudiences = new string[] { jsonWebTokenOptions.Audience }
+                };
+            });
+
+            services.AddCors(op =>
+               op.AddDefaultPolicy(
+               builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,7 +97,12 @@ namespace publicApi
 
             app.UseRouting();
 
+            app.UseCors();
+            
+            app.UseAuthentication();
+           
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {

@@ -9,6 +9,8 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace publicApi.Service
 {
@@ -21,7 +23,30 @@ namespace publicApi.Service
             _context = db;
         }
 
-       
+
+        public  async Task<usuarioDto> getUserInfo(string username) 
+        {
+            var usuario = await _context.Usuarios.Where(x => x.userName.Equals(username)).SingleOrDefaultAsync();
+            var usuarioDto = _mapper.Map<usuarioDto>(usuario);
+            return usuarioDto;
+        }
+
+        public async Task<List<usuarioDto>> getAllUsers() 
+        {
+            var listado = await _context.Usuarios.ToListAsync();
+           var userList = _mapper.Map<List<usuarioDto>>(listado);
+            return userList;
+        }
+        public async Task UpdateUser(usuarioDto user)
+        {
+            var usuario = _mapper.Map<usuario>(user);
+
+             _context.Usuarios.Update(usuario);
+              await _context.SaveChangesAsync();
+
+           await updatePassword(user.userName, user.password);
+           
+        }
 
         public async Task updatePassword(string username, string password) 
         {
