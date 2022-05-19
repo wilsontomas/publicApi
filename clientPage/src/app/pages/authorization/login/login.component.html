@@ -1,1 +1,35 @@
-<p>login works!</p>
+<mat-toolbar color="primary">
+    
+    <span>Cliente</span>
+    <span class="example-spacer"></span>
+   
+  </mat-toolbar>
+  <br />
+  <br />
+  <mat-card class="example-card">
+    <mat-card-header>
+     
+      <mat-card-title>Login</mat-card-title>
+    
+    </mat-card-header>
+   
+    <mat-card-content>
+        <div>
+        <form [formGroup]="loginForm">
+            <mat-form-field>
+                <mat-label>Correo</mat-label>
+                <input matInput formControlName="username" type="email" placeholder="Ingrese su correo">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Clave</mat-label>
+                <input matInput formControlName="password"  type="password" placeholder="Ingrese su clave">
+            </mat-form-field>
+        </form>
+           
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="login()" [disabled]="loginForm.invalid">Iniciar Sesion</button>
+      <button mat-raised-button color="basic" routerLink="/auth/auth-service/register">Registrarse</button>
+    </mat-card-actions>
+  </mat-card>

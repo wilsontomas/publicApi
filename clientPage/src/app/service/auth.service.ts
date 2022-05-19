@@ -22,7 +22,7 @@ export class AuthService {
 
   isAuthorized(grantedRole: Number): boolean {
     if (
-      this.getUserRole().some((x) => x === grantedRole) 
+      this.getUserRole() === grantedRole
     ) {
       return true;
     }
@@ -42,7 +42,7 @@ export class AuthService {
     return valor;
   }
 
-  public getUserRole(): Number[] {
+  public getUserRole(): Number {
     let valor = JSON.parse(this.getKeyFromToken('role'));
     //console.log(valor);
     return valor;
@@ -93,7 +93,7 @@ export class AuthService {
     this.removeAuthToken();
     const params = { username, password };
     const userInfo = this.base64url.encode(JSON.stringify(params), 'utf8');
-    const url = `${this.controllerUrl}/auth/login`;
+    const url = `${this.controllerUrl}/Auth/login`;
     const headers = { Authentication: `${userInfo}` };
 
     return this.http.get<JwtAuthResult>(url, { headers }).pipe(
@@ -113,6 +113,7 @@ export class AuthService {
   logOut(): any {
     this.removeAuthToken();
     this.auth$.next(null);
+    
   }
 
 

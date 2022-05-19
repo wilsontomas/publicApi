@@ -11,8 +11,8 @@ import { SharedModule } from 'src/app/components/shared.module';
   declarations: [
     LoginComponent,
     RegisterComponent
-  ],
-  imports: [
+  ], 
+  imports: [ 
     CommonModule,
     AuthorizationRoutingModule,
     SharedModule

@@ -8,6 +8,7 @@ using publicApi.Service.Interfaces;
 using System;
 using Microsoft.AspNetCore.Authorization;
 using publicApi.Service.UtilClasses;
+using publicApi.Services.Helpers;
 
 namespace publicApi.Controllers
 {
@@ -37,13 +38,21 @@ namespace publicApi.Controllers
             return Ok();
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("login")]
-        public async Task<ActionResult<JwtAuthResult>> login(string username,string password) 
+        public async Task<ActionResult<JwtAuthResult>> login() 
         {
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password)) return BadRequest();
+            if (!Request.Headers.ContainsKey("Authentication"))
+            {
+                return BadRequest();
+            }
+            string encodedAuthetication = Request.Headers["Authentication"];
+            var loginData = Encoding_helper.DecodeFromBase64<loginData>(encodedAuthetication);
 
-          var result =  await _servicio.Authenticate(username, password);
+
+            if (string.IsNullOrEmpty(loginData.username) || string.IsNullOrEmpty(loginData.password)) return BadRequest();
+
+          var result =  await _servicio.Authenticate(loginData.username, loginData.password);
             return Ok(result);
         }
     }

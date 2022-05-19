@@ -28,6 +28,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 const materialComponent = [
   MatTableModule,
@@ -56,8 +57,9 @@ const materialComponent = [
   MatTooltipModule,
   MatExpansionModule,
   CdkAccordionModule,
-  MatBadgeModule
-  
+  MatBadgeModule,
+  MatFormFieldModule,
+  MatInputModule,
 ];
 
 @NgModule({

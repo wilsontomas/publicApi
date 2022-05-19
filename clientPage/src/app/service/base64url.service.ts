@@ -22,10 +22,10 @@ export class Base64UrlService {
     // Remove non-ascii characters if provided character encoding is ascii
     const valueToEncode: string =
       encoding === 'ascii' ? input.replace(/[^\x00-\x7F]/g, '') : input;
-    if (isPlatformServer(this.platformId)) {
+   /* if (isPlatformServer(this.platformId)) {
       const base64 = Buffer.from(valueToEncode, encoding).toString('base64');
       return this.fromBase64(base64);
-    }
+    }*/
 
     switch (encoding) {
       case 'ascii':
@@ -50,9 +50,9 @@ export class Base64UrlService {
    */
   decode(input: string, encoding: Encoding = 'ascii'): string {
     const base64 = this.toBase64(input);
-    if (isPlatformServer(this.platformId)) {
+   /* if (isPlatformServer(this.platformId)) {
       return Buffer.from(base64, 'base64').toString(encoding);
-    }
+    }*/
 
     switch (encoding) {
       case 'ascii':

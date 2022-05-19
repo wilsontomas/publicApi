@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { UnauthorizeComponent } from './components/unauthorize/unauthorize.component';
 import { MainNavComponent } from './main-nav/main-nav/main-nav.component';
 import { AccountGuard } from './service/guards/account.guard';
 import { AdminGuard } from './service/guards/admin.guard';
@@ -14,7 +15,6 @@ const routes: Routes = [
   },
   {
     path: 'auth',
-    component: MainNavComponent,
     canActivate: [AuthGuard],
     canActivateChild: [AuthGuard],
     children: [
@@ -72,6 +72,10 @@ const routes: Routes = [
       },
     ],
   },
+  {
+    path:'warning',
+    component:UnauthorizeComponent
+  }
 ];
 
 @NgModule({
