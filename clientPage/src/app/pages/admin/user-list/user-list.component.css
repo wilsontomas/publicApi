@@ -1,0 +1,16 @@
+table{
+    width:100%;
+}
+
+.mat-row:hover {
+   
+    background-color: #34153c;
+    color: white;
+    
+    cursor: pointer;
+    
+  }
+
+  .mat-row:hover>td{
+      color: white;
+  }

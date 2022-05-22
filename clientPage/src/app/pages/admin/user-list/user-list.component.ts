@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Usuario } from 'src/app/Model/interfaces/usuario';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-user-list',
@@ -7,9 +10,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserListComponent implements OnInit {
 
-  constructor() { }
+  displayedColumns: string[] = ['id', 'firstName', 'lastName', 'userName'];
+  dataSource:Usuario[]=[];
+  constructor(private userService:UserService,private router:Router) { }
 
   ngOnInit(): void {
+    this.cargarUsuarios();
+  }
+
+
+  cargarUsuarios(){
+    this.userService.getAllUsers().subscribe((data:Usuario[])=>{
+      this.dataSource=data;
+      console.log(data);
+    })
+  }
+
+  selectUser(id:number){
+    this.router.navigate([`/admin/admin-management/user-detail/${id}`])
   }
 
 }

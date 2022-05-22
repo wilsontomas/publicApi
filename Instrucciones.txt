@@ -1,0 +1,6 @@
+1 conectar a una base de datos editando el appsetting del 
+api para que apunte a una base de datos de sql server.
+
+2 editar el appsetting del cliente para que apunte a la api.
+
+3 correr la migracion

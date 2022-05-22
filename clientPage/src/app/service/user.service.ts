@@ -15,4 +15,13 @@ export class UserService {
     return this.http.get<Usuario>(`${this.controllerUrl}/GetUserInfo`);
     
   }
+
+  getAllUsers():Observable<Usuario[]>{
+    return this.http.get<Usuario[]>(`${this.controllerUrl}/GetAllUsers`);
+    
+  }
+  getUserInfoById(id:number):Observable<Usuario>{
+    return this.http.get<Usuario>(`${this.controllerUrl}/GetUserById/${id}`);
+    
+  }
 }
