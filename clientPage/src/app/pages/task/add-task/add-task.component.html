@@ -1,1 +1,38 @@
-<p>add-task works!</p>
+
+  <br />
+  <br />
+  <mat-card class="example-card">
+    
+    <mat-card-header>
+     
+      <mat-card-title>Agregar Tarea</mat-card-title>
+    
+    </mat-card-header>
+   
+    <mat-card-content>
+      
+        <div>
+        <form [formGroup]="taskForm">
+            <mat-form-field>
+                <mat-label>Titulo</mat-label>
+                <input matInput formControlName="name" type="email" placeholder="Nombre de la tarea">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Mensaje</mat-label>
+               
+                <textarea matInput maxlength="50" formControlName="message" cols="4" rows="4" placeholder="Ingrese su clave">
+
+                </textarea>
+            </mat-form-field>
+        </form>
+           
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="guardar()" [disabled]="taskForm.invalid">Guardar</button>
+      <button mat-raised-button color="basic" routerLink="/task/task-service/">Cancelar</button>
+    </mat-card-actions>
+
+  </mat-card>
+
+

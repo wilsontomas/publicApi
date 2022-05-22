@@ -1,0 +1,14 @@
+mat-form-field{
+    width: 100%;
+}
+
+mat-card{
+    width: 50%;
+    margin: auto;
+   
+}
+mat-card-header,mat-card-title,mat-card-actions{
+   text-align: center;
+   margin: auto;
+   justify-content: center;
+}

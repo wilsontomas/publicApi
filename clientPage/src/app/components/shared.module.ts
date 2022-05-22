@@ -13,7 +13,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
   
     NotFoundComponent,
     UnauthorizeComponent,
-    
+    SpinnerComponent
        
       
   ],

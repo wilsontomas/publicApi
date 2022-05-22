@@ -1,0 +1,14 @@
+.tarea{
+    width: 95%;
+    margin: 5px;
+    
+}
+
+.contenedor{
+    width: 100%;
+}
+.texto{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}

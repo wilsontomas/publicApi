@@ -1,1 +1,32 @@
-<p>task-list works!</p>
+
+  <br />
+  <br />
+  <div class="contenedor">
+    <mat-grid-list
+    [cols]="row"
+    (window:resize)="setRow($event)"
+    rowHeight="100px"
+  >
+        <mat-grid-tile *ngFor="let task of tareas"  >
+            <div class="col" class="tarea">
+                <mat-card >
+            <mat-card-header> 
+                 <mat-card-title>{{task.name}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content >
+                    <hr />
+                    <p class="texto">
+                {{task.message}}
+                    
+                    </p>
+            </mat-card-content>
+      </mat-card>
+        </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+   
+  </div>
+  
+
+
+

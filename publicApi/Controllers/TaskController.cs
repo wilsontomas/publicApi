@@ -27,7 +27,7 @@ namespace publicApi.Controllers
         public async Task<ActionResult<IEnumerable<Tareas>>> GetAllTasks(int id)
         {
           var listado = await _servicio.GetTareas(id);
-            return listado;
+            return Ok(listado);
         }
 
 
