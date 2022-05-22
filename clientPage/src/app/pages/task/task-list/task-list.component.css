@@ -1,6 +1,7 @@
 .tarea{
     width: 95%;
     margin: 5px;
+    height: fit-content;
     
 }
 
@@ -8,7 +9,17 @@
     width: 100%;
 }
 .texto{
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+   
+    white-space: normal;
+  overflow-wrap: break-word;
+}
+mat-grid-tile:hover{
+    cursor: pointer;
+    background-color: #673ab7;
+    color:white;
+}
+
+.centrar{
+    margin: auto;
+    text-align: center;
 }

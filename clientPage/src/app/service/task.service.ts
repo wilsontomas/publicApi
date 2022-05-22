@@ -27,8 +27,8 @@ export class TaskService {
    return this.http.post(`${this.controllerUrl}/AddTask`,params,this.httpOptions);
   }
 
-  update(id:number,name:string,msn:string){
-    let data ={id:id,name:name,message:msn};
+  update(id:number,msn:string){
+    let data ={id:id,message:msn};
     let params = JSON.stringify(data);
    return this.http.put(`${this.controllerUrl}/UpdateTask`,params,this.httpOptions);
   }

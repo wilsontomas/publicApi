@@ -7,11 +7,11 @@
     (window:resize)="setRow($event)"
     rowHeight="100px"
   >
-        <mat-grid-tile *ngFor="let task of tareas"  >
+        <mat-grid-tile *ngFor="let task of tareas" (click)="updatDialoge(task.id,task.message)" >
             <div class="col" class="tarea">
                 <mat-card >
             <mat-card-header> 
-                 <mat-card-title>{{task.name}}</mat-card-title>
+                 <mat-card-title>{{task.name}} </mat-card-title>
             </mat-card-header>
             <mat-card-content >
                     <hr />
@@ -23,6 +23,7 @@
       </mat-card>
         </div>
         </mat-grid-tile>
+        <h2 class="centrar">No hay tares para mostrar</h2>
     </mat-grid-list>
    
   </div>

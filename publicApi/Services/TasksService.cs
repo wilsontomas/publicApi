@@ -34,7 +34,9 @@ namespace publicApi.Services
 
         public async Task updateTarea(Tareas tarea) 
         {
-            _context.Tareas.Update(tarea);
+            var oldTask = await _context.Tareas.Where(x => x.id == tarea.id).SingleOrDefaultAsync();
+            oldTask.message = tarea.message;
+            _context.Tareas.Update(oldTask);
             await _context.SaveChangesAsync();
         }
 

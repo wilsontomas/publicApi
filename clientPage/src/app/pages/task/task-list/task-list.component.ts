@@ -1,5 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Subject, takeUntil } from 'rxjs';
+import { TaskupdateDialogComponent } from 'src/app/components/taskupdate-dialog/taskupdate-dialog.component';
 import { TaskModel } from 'src/app/Model/interfaces/TaskModel';
 import { AuthService } from 'src/app/service/auth.service';
 import { TaskService } from 'src/app/service/task.service';
@@ -11,7 +13,10 @@ import { TaskService } from 'src/app/service/task.service';
 })
 export class TaskListComponent implements OnInit,OnDestroy {
  private unsubscribe$ = new Subject();
-  constructor(private taskService:TaskService,private auth:AuthService) { }
+  constructor(private taskService:TaskService,
+    private auth:AuthService,
+    private matdialog:MatDialog
+    ) { }
   tareas:TaskModel[]=[];
   row:number=1;
   
@@ -58,5 +63,18 @@ export class TaskListComponent implements OnInit,OnDestroy {
     this.unsubscribe$.complete();
   }
 
-
+  updatDialoge(id:number,msn:string){
+    this.matdialog
+    .open(TaskupdateDialogComponent, {
+      height: '290px',
+      width: '450px',
+      data:{id,msn}
+    })
+    .afterClosed()
+    .pipe(takeUntil(this.unsubscribe$))
+    .subscribe(() => {
+     console.log('Se cerro');
+     this.cargarTareas();
+    });
+  }
 }

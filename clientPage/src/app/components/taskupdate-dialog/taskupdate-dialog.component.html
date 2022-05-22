@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Actualizar Tarea</h1>
+<div mat-dialog-content>
+  <form>
+    <mat-form-field appearance="fill" class="input-width">
+      <mat-label>Nueva tarea</mat-label>
+      <textarea
+        class="input-width"
+        maxlength="70"
+        rows="5"
+        [(ngModel)]="data.msn"
+        [ngModelOptions]="{ standalone: true }"
+        matInput
+        placeholder="Tarea..."
+      >{{data.msn}}</textarea>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="warn" (click)="close()" cdkFocusInitial>
+    Cancelar
+  </button>
+  <button mat-flat-button color="primary" (click)="update()">Guardar</button>
+</div>
