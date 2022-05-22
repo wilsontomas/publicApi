@@ -1,0 +1,16 @@
+mat-card-header,mat-card-title,mat-card-content{
+    text-align: center;
+    margin: auto;
+    justify-content: center;
+ }
+
+ .alignR{
+     text-align: right;
+ }
+ .alignL{
+     text-align: left;
+ }
+
+ table{
+    margin: auto;
+ }

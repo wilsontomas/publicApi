@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using publicApi.Model.Models.Dtos;
 using publicApi.Service.Interfaces;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace publicApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -67,6 +69,18 @@ namespace publicApi.Controllers
             await _servicio.DeleteUser(id);
 
             return Ok();
+        }
+
+        [HttpGet]
+        [Route("GetUserInfo")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<usuarioDto>> GetInfo()
+        {
+            var user = await _servicio.getLoggedUser();
+
+            return Ok(user);
         }
     }
 }

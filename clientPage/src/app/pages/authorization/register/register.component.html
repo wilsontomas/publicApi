@@ -1,1 +1,55 @@
-<p>register works!</p>
+<mat-toolbar color="primary">
+    
+    <span>Cliente</span>
+
+    <span class="example-spacer"> </span>
+   
+  </mat-toolbar>
+  <app-spinner></app-spinner>
+  <br />
+  <br />
+  <mat-card class="example-card">
+    
+    <mat-card-header>
+     
+      <mat-card-title>Registro</mat-card-title>
+    
+    </mat-card-header>
+   
+    <mat-card-content>
+      
+        <div>
+        <form [formGroup]="registerForm">
+            <mat-form-field>
+                <mat-label>Username</mat-label>
+                <input matInput formControlName="userName"  type="text" placeholder="Nombre de usuario">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="firstName"  type="text" placeholder="Nombre">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Apellido</mat-label>
+                <input matInput formControlName="lastName"  type="text" placeholder="Apellido">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Correo</mat-label>
+                <input matInput formControlName="email" type="email" placeholder="Correo">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Clave</mat-label>
+                <input matInput formControlName="password"  type="password" placeholder="Clave">
+            </mat-form-field>
+           
+        </form>
+           
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="register()" [disabled]="registerForm.invalid">Registrarse</button>
+      <button mat-raised-button color="basic" routerLink="/auth/auth-service/login">Tienes una cuenta? inicia sesion</button>
+    </mat-card-actions>
+
+  </mat-card>
+
+

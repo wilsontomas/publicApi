@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Base64UrlService } from './base64url.service';
@@ -6,6 +6,7 @@ import { LocalStorageService } from './local-storage.service';
 import jwt_decode from 'jwt-decode';
 import {appsetting} from './appSettings'
 import { JwtAuthResult } from '../Model/auth-result';
+import { Usuario } from '../Model/interfaces/usuario';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +14,11 @@ export class AuthService {
   private TokenStorageKeyName: string = 'accessToken';
   private auth$: BehaviorSubject<JwtAuthResult | null> = new BehaviorSubject<JwtAuthResult | null>(null);
   private controllerUrl = `${appsetting.API_URL}/api`;
-
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    }),
+  };
   constructor(
     private http: HttpClient,
     private localStorage: LocalStorageService,
@@ -97,6 +102,26 @@ export class AuthService {
     const headers = { Authentication: `${userInfo}` };
 
     return this.http.get<JwtAuthResult>(url, { headers }).pipe(
+      map((authResult:any) => {
+        this.localStorage.setItem(
+          this.TokenStorageKeyName,
+          authResult.accessToken
+        );
+
+        this.auth$.next(authResult);
+
+        return authResult;
+      })
+    );
+  }
+
+  
+  register(datos:Usuario): Observable<JwtAuthResult> {
+    this.removeAuthToken();
+      const userInfo = this.base64url.encode(JSON.stringify(datos), 'utf8');
+      const headers = { Authentication: `${userInfo}` };
+    const url = `${this.controllerUrl}/Auth/register`;
+    return this.http.get(url, { headers }).pipe(
       map((authResult:any) => {
         this.localStorage.setItem(
           this.TokenStorageKeyName,

@@ -13,11 +13,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { SharedModule } from './components/shared.module';
 import { HttpClientModule } from '@angular/common/http';
+import { httpInterceptorProviders } from './service/Interceptors/interceptor.provider';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { SpinnerService } from './service/spinner.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainNavComponent,
+    
     
   ],
   imports: [
@@ -27,13 +31,13 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     LayoutModule,
     SharedModule,
-     MatToolbarModule,
+    MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
     MatListModule,
   ],
-  providers: [],
+  providers: [...httpInterceptorProviders,SpinnerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

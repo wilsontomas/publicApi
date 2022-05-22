@@ -36,8 +36,6 @@ export class LoginComponent implements OnInit {
       .subscribe((data:JwtAuthResult)=>{
         console.log(this.auth.getUserRole());
             this.router.navigate(['account/account-service/home']);
-      },(error)=>{
-        console.log(error)
       })
     }
   }

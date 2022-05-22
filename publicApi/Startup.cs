@@ -22,6 +22,8 @@ using publicApi.Service.ConfigurationOptions;
 using System.Text;
 using publicApi.Services;
 using publicApi.Services.Interfaces;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace publicApi
 {
@@ -80,6 +82,13 @@ namespace publicApi
                op.AddDefaultPolicy(
                builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
+            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient(s =>
+            {
+                IHttpContextAccessor contextAccessor = s.GetService<IHttpContextAccessor>();
+                ClaimsPrincipal user = contextAccessor?.HttpContext?.User;
+                return user ?? throw new Exception("No se encontro el usuario");
+            });
 
         }
 

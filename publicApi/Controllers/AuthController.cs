@@ -23,19 +23,27 @@ namespace publicApi.Controllers
             _servicio = authService;
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("register")]
-        public async Task<ActionResult> Register(usuarioDto user)
+        public async Task<ActionResult<JwtAuthResult>> Register()
         {
-            if (user == null) return BadRequest();
+            if (!Request.Headers.ContainsKey("Authentication"))
+            {
+                return BadRequest();
+            }
+            string encodedAuthetication = Request.Headers["Authentication"];
+            var registerData = Encoding_helper.DecodeFromBase64<usuarioDto>(encodedAuthetication);
             try
             {
-                await _servicio.Register(user);
+                await _servicio.Register(registerData);
+                var result = await _servicio.Authenticate(registerData.userName, registerData.password);
+                return Ok(result);
+
             }
             catch (Exception er) {
                 return BadRequest();
             }
-            return Ok();
+           
         }
 
         [HttpGet]

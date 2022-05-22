@@ -1,1 +1,40 @@
-<p>profile works!</p>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<mat-card class="example-card">
+  <mat-card-header>
+   
+    <mat-card-title>Perfil</mat-card-title>
+  
+  </mat-card-header>
+ 
+  <mat-card-content>
+      <div>
+      <h1>Bienvenido</h1>
+      <table *ngIf="info.userName !==''">
+        <tbody>
+          <tr>
+            <td class="alignR"><b>Usuario:</b></td>
+            <td class="alignL">{{info.userName}}</td>
+          </tr>
+          <tr>
+            <td class="alignR"><b>Nombre:</b></td>
+            <td class="alignL">{{info.firstName}}</td>
+          </tr>
+          <tr>
+            <td class="alignR"><b>Apellido:</b></td>
+            <td class="alignL">{{info.lastName}}</td>
+          </tr>
+          <tr>
+            <td class="alignR"><b>Email:</b></td>
+            <td class="alignL">{{info.email}}</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+  </mat-card-content>
+  
+</mat-card>

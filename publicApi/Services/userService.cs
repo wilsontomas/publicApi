@@ -10,7 +10,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-
+using System.Security.Claims;
 
 namespace publicApi.Service
 {
@@ -18,9 +18,11 @@ namespace publicApi.Service
     {   
         private readonly IMapper _mapper;
         private readonly DbUsuarioContext _context;
-        public userService(IMapper mapper, DbUsuarioContext db) {
+        private readonly ClaimsPrincipal _user;
+        public userService(IMapper mapper, DbUsuarioContext db, ClaimsPrincipal user) {
             _mapper = mapper;
             _context = db;
+            _user = user;
         }
 
 
@@ -91,6 +93,21 @@ namespace publicApi.Service
             return Convert.ToBase64String(rfc.GetBytes(256)) == hash;
         }
 
+        public async Task<usuarioDto> getLoggedUser()
+        {
+            var userCredentials = _user.Identity.Name;
+      
+            if (string.IsNullOrWhiteSpace(userCredentials))
+            {
+                throw new InvalidOperationException("Cannot get logged user");
+            }
+            var userData = await _context.Usuarios
+                .Where(x => x.userName == userCredentials)
+                .SingleOrDefaultAsync();
+            var userDto = _mapper.Map<usuarioDto>(userData);
+            userDto.password = "";
+            return userDto;
+        }
 
 
     }

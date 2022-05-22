@@ -5,12 +5,14 @@ import { AuthorizationRoutingModule } from './authorization-routing.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { SharedModule } from 'src/app/components/shared.module';
+import { SpinnerComponent } from 'src/app/components/spinner/spinner.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    SpinnerComponent
   ], 
   imports: [ 
     CommonModule,

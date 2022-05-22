@@ -29,12 +29,6 @@ export class MenuService {
         rol:2
       },
       {
-        name:'Crear Usuarios',
-        icon:'add_box',
-        url:'/admin/admin-management/create-user',
-        rol:2
-      },
-      {
         name:'Lista de Tareas',
         icon:'sort',
         url:'/task/task-service/task-list',

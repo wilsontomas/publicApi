@@ -15,5 +15,6 @@ namespace publicApi.Service.Interfaces
         Task UpdateUser(usuarioDto user);
         Task<List<usuarioDto>> getAllUsers();
         Task DeleteUser(int id);
+        Task<usuarioDto> getLoggedUser();
     }
 }
