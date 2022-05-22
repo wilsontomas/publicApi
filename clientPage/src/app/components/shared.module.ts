@@ -14,7 +14,6 @@ import { TaskupdateDialogComponent } from './taskupdate-dialog/taskupdate-dialog
   
     NotFoundComponent,
     UnauthorizeComponent,
-    SpinnerComponent,
     TaskupdateDialogComponent
        
       

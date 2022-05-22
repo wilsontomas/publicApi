@@ -14,14 +14,13 @@ import { MatListModule } from '@angular/material/list';
 import { SharedModule } from './components/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { httpInterceptorProviders } from './service/Interceptors/interceptor.provider';
-import { SpinnerComponent } from './components/spinner/spinner.component';
 import { SpinnerService } from './service/spinner.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainNavComponent,
-    
+
     
   ],
   imports: [
