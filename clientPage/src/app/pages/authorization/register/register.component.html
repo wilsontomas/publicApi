@@ -13,7 +13,7 @@
     <mat-card-header>
      
       <mat-card-title>Registro</mat-card-title>
-    
+     
     </mat-card-header>
    
     <mat-card-content>
@@ -23,6 +23,7 @@
             <mat-form-field>
                 <mat-label>Username</mat-label>
                 <input matInput formControlName="userName"  type="text" placeholder="Nombre de usuario">
+                
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Nombre</mat-label>
@@ -42,7 +43,7 @@
             </mat-form-field>
            
         </form>
-           
+        <p *ngIf="showDup" class="exist">El nombre de usuario o el correo ya existe</p>
         </div>
     </mat-card-content>
     <mat-card-actions>

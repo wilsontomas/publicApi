@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { JwtAuthResult } from 'src/app/Model/auth-result';
 import { AuthService } from 'src/app/service/auth.service';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-register',
@@ -12,12 +13,13 @@ import { AuthService } from 'src/app/service/auth.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-
+  showDup:Boolean=false;
   private unsubscribe$=new Subject();
   constructor(
     private bd:FormBuilder,
     private auth:AuthService,
-    private router:Router) { }
+    private router:Router,
+    private userService:UserService) { }
 
   registerForm:FormGroup=new FormGroup({});
   ngOnInit(): void {
@@ -36,15 +38,31 @@ export class RegisterComponent implements OnInit {
       typeId:[1],
     })
   }
+
+  verifyDupUser(username:string){
+   
+    this.auth.verifyDupUser(username).pipe(takeUntil(this.unsubscribe$))
+    .subscribe((resp:Boolean)=>{
+     
+      this.showDup = resp;
+    });
+  
+  }
   register(){
     if(this.registerForm.valid){
-    
-     //console.log(this.registerForm.value)
-      this.auth.register(this.registerForm.value).pipe(takeUntil(this.unsubscribe$))
-      .subscribe((data:JwtAuthResult)=>{
+      let username =this.registerForm.controls['userName'].value;
+      this.verifyDupUser(username);
+      if(!this.showDup)
+      {
+      
+          
+        this.auth.register(this.registerForm.value).pipe(takeUntil(this.unsubscribe$))
+        .subscribe((data:JwtAuthResult)=>{
 
-            this.router.navigate(['account/account-service/home']);
-      })
+              this.router.navigate(['account/account-service/home']);
+        });
+      }
+    
     }
   }
 

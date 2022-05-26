@@ -24,4 +24,5 @@ export class UserService {
     return this.http.get<Usuario>(`${this.controllerUrl}/GetUserById/${id}`);
     
   }
+
 }

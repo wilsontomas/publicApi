@@ -135,6 +135,12 @@ export class AuthService {
     );
   }
 
+  verifyDupUser(username:string):Observable<Boolean>{
+    const userInfo = this.base64url.encode(JSON.stringify(username), 'utf8');
+      const headers = { Authentication: `${userInfo}` };
+    return this.http.get<Boolean>(`${this.controllerUrl}/Auth/VerifyDupUser`,{headers});
+    
+  }
   logOut(): any {
     this.removeAuthToken();
     this.auth$.next(null);

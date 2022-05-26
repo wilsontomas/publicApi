@@ -78,6 +78,15 @@ namespace publicApi.Service
            
         }
 
+        public async Task<bool> verifyDupUser(string username)
+        {
+            bool resp = false;
+            var usuario = await _context.Usuarios.Where(x => x.userName == username).FirstOrDefaultAsync();
+            if (usuario != null) { resp = true; }
+            usuario = null;
+            return resp;
+        }
+
 
     }
 }

@@ -12,3 +12,6 @@ mat-card-header,mat-card-title,mat-card-actions{
    margin: auto;
    justify-content: center;
 }
+.exist{
+    color:red;
+}

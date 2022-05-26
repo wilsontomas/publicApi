@@ -13,5 +13,6 @@ namespace publicApi.Service.Interfaces
     {
         Task Register(usuarioDto user);
         Task<JwtAuthResult> Authenticate(string username, string password);
+        Task<bool> verifyDupUser(string username);
     }
 }

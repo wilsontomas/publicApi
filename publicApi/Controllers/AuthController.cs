@@ -63,5 +63,26 @@ namespace publicApi.Controllers
           var result =  await _servicio.Authenticate(loginData.username, loginData.password);
             return Ok(result);
         }
+
+        [HttpGet]
+        [Route("VerifyDupUser")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<usuarioDto>> VerifyDup()
+        {
+            if (!Request.Headers.ContainsKey("Authentication"))
+            {
+                return BadRequest();
+            }
+            string encodedAuthetication = Request.Headers["Authentication"];
+            var username = Encoding_helper.DecodeFromBase64<string>(encodedAuthetication);
+
+            if (string.IsNullOrEmpty(username)) return BadRequest();
+
+            var user = await _servicio.verifyDupUser(username);
+
+            return Ok(user);
+        }
     }
 }
